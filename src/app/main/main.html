@@ -1,0 +1,119 @@
+<div class="container">
+
+  <div class="text-center">
+    <i class="material-icons" style="font-size:42px;">flight</i>
+    <h3>Bid 4 Meal</h3>
+    <h4>Allo, {{main.mealPackages.booking.passengers[0].firstName}}</h4>
+  </div>  
+
+  <div ng-show="main.Journey1" class="row text-center">
+    <i class="material-icons" style="font-size:35px; color:#c4c9be;">flight_takeoff</i> 
+    <p style="color:#ababab; font-size:12px;">FLIGHT INFORMATION</p>
+    <h4 style="background-color: #e9e9e9; padding: 2px;">{{main.mealPackages.booking.journeys[0].key}}</h4>
+    <p>&nbsp</p>
+    <i class="material-icons">info</i><h5>Please select your desired meal per journey and make a bid for it!</h5>
+    <p>&nbsp</p><p>&nbsp</p>
+    <div class="col-sm-6 col-md-4" ng-repeat="meal in main.mealPackages.options">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="selectedMeal">
+          Select Meal
+        </label>
+      </div>    
+      <div class="thumbnail offer">
+        <div class="caption">
+          <h4><i class="material-icons">fastfood</i> {{ meal.mealId }}</h4>
+          <p>{{ meal.desc }}</p>
+          <p>Bid range: {{ meal.priceRange.min }} {{meal.currency}} - {{ meal.priceRange.max }} {{meal.currency}}</p>
+          <p>Choose your bid:
+            <select ng-disabled="!selectedMeal" ng-model="selectedBid" ng-options="x for x in main.bids[meal.mealId].ranges">
+            </select>
+          </p>
+          <div class="row text-center">
+          <button ng-disabled="!selectedMeal" type="button" class='btn btn-success' ng-click="main.bid4Meal(main.mealPackages.booking.journeys[0].key, meal, selectedBid, false)">Bid it!</button>
+          </div>
+        </div>       
+      </div>
+    </div>
+  </div>  
+
+  <div ng-show="main.Journey2" class="row text-center">
+    <i class="material-icons" style="font-size:35px; color:#c4c9be;">flight_takeoff</i> 
+    <p style="color:#ababab; font-size:12px;">FLIGHT INFORMATION</p>
+    <h4 style="background-color: #e9e9e9; padding: 2px;">{{main.mealPackages.booking.journeys[1].key}}</h4>
+    <p>&nbsp</p>
+    <i class="material-icons">info</i><h5>Please select your desired meal per journey and make a bid for it!</h5>
+    <p>&nbsp</p><p>&nbsp</p>
+    <div class="col-sm-6 col-md-4" ng-repeat="meal in main.mealPackages.options">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="selectedMeal">
+          Select Meal
+        </label>
+      </div>    
+      <div class="thumbnail offer">
+        <div class="caption">
+          <h4>{{ meal.mealId }}</h4>
+          <p>{{ meal.desc }}</p>
+          <p>Bid range: {{ meal.priceRange.min }} {{meal.currency}} - {{ meal.priceRange.max }} {{meal.currency}}</p>
+          <p>Choose your bid:
+            <select ng-disabled="!selectedMeal" ng-model="selectedBid" ng-options="x for x in main.bids[meal.mealId].ranges">
+            </select>
+          </p>
+          <button ng-disabled="!selectedMeal" type="button" class='btn btn-success' ng-click="main.bid4Meal(main.mealPackages.booking.journeys[1].key, meal, selectedBid, true)">Bid it!</button>
+        </div>       
+      </div>
+    </div>
+  </div>   
+
+  <div ng-show="main.synopsis" class="row text-center">
+    <h4>{{main.mealPackages.booking.passengers[0].firstName}}, please confirm your meals.</h4>
+    <div class="col-sm-6 col-md-4" ng-repeat="order in main.passengerMeals.selection">   
+      <div class="thumbnail offerreview">
+        <div class="caption">
+          <p>Journey : {{ order.journeyKey }}</p>
+          <p>Meal : {{ order.mealId }}</p>
+          <p>Your bid : {{ order.amount }}</p>
+          <p>Currency : {{ order.currency }}</p>
+        </div>       
+      </div>
+    </div>    
+  </div>  
+  <div ng-show="main.synopsis" class="row text-center">
+  <button ng-show="main.synopsis" type="button" class='btn btn-default' style="padding:10px;" ng-click="main.submitMeals()">It seems fine! <i class="material-icons" style="font-size:21px;">mood</i></button>
+  <button ng-show="main.synopsis" type="button" class='btn btn-default' style="color:#9c9c9c;" ng-click="main.cancelMeals()">Cancel</button>
+  </div>
+
+  <div ng-show="main.goodbye" class="row text-center">
+    <h4>Thank you {{main.mealPackages.booking.passengers[0].firstName}}!</h4>
+    <p>Your order was succesfully placed.</p>
+  </div>    
+
+<!--   <div class="jumbotron text-center">
+    <h1>'Allo, 'Allo!</h1>
+    <p class="lead">
+      <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
+      Always a pleasure scaffolding your apps.
+    </p>
+    <p class="animated infinite" ng-class="main.classAnimation">
+      <button type="button" class="btn btn-lg btn-success" ng-click="main.showToastr()">Splendid Toastr</button>
+    </p>
+    <p>
+      With ♥ thanks to the contributions of<acme-malarkey extra-values="['Yeoman', 'Gulp', 'Angular']"></acme-malarkey>
+    </p>
+  </div> -->
+
+<!--   <div class="row">
+    <div class="col-sm-6 col-md-4" ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'">
+      <div class="thumbnail">
+        <img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">
+        <div class="caption">
+          <h3>{{ awesomeThing.title }}</h3>
+          <p>{{ awesomeThing.description }}</p>
+          <p><a ng-href="{{awesomeThing.url}}">{{ awesomeThing.url }}</a></p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+</div>
