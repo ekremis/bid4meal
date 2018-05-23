@@ -2,8 +2,8 @@
 bid 4 meals
 
 Please follow instructions below :
-npm install
-bower install
+npm install,
+bower install,
 gulp serve OR gulp && gulp serve:dist
 
 
